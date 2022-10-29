@@ -79,6 +79,17 @@
                         @endforelse
                     </tbody>
                 </table>
+                @if ($page > 1)
+                    <a href='/search?page={{ $page - 1}}'>Previous</a>
+                @else
+                    <a>Previous</a>
+                @endif
+
+                @if ($pagination->has_next_page == TRUE && $page < $pagination->items->total)
+                    <a href="/search?page={{ $page + 1 }}">Next</a>
+                @else
+                    <a>Next</a>
+                @endif
             </div>
         </div>
     <a href="/">Home</a>

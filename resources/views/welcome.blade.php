@@ -34,7 +34,7 @@
                 </table>
             </div>
         </div>
-    <a href='/search'>Search Database</a>
+    <a href='/search?page=1'>Search Database</a>
 </div>
 </body>
 </html>

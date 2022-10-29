@@ -25,8 +25,11 @@ class MangaController extends Controller
     */
     public function search(Request $request)
     {
-        $response = Http::get('https://api.jikan.moe/v4/manga?&limit=10&page=1');
-        return view('search', ['mangas' => json_decode($response->body())->data]);
+        $page = $request->get('page', 1);
+        $response = Http::get('https://api.jikan.moe/v4/manga?&limit=10&page=' . $page);
+        $mangas = json_decode($response->body())->data;
+        $pagination = json_decode($response->body())->pagination;
+        return view('search', compact('mangas', 'pagination', 'page'));
     }
 
     /*
