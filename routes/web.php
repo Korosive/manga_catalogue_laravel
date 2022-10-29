@@ -15,3 +15,5 @@ use App\Http\Controllers\MangaController;
 */
 
 Route::get('/', [MangaController::class, 'index']);
+
+Route::get('/search', [MangaController::class, 'search']);

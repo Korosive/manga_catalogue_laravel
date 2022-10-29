@@ -10,8 +10,6 @@
         <div class="row">
             <div class="col-12 text-center pt-5">
                 <h1 class="display-one m-5">PHP Laravel Project - CRUD</h1>
-                <div class="text-left"><a href="product/create" class="btn btn-outline-primary">Add new
-                    product</a></div>
 
                 <table class="table mt-3  text-left">
                     <thead>
@@ -36,6 +34,7 @@
                 </table>
             </div>
         </div>
+    <a href='/search'>Search Database</a>
 </div>
 </body>
 </html>
