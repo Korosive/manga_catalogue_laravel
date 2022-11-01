@@ -50,13 +50,15 @@ class MangaController extends Controller
         return redirect('/')->with('status', 'Successfully added manga!');
     }
 
-    public function updateStatus(Request $request, Manga $manga)
+    public function update(Request $request)
     {
-        $manga->update([
-            'status' => $request->status
-        ]);
+        $manga = Manga::find($request->record_id);
 
-        return redirect('manga.list');
+        $manga->status = $request->status;
+
+        $manga->save(); 
+
+        return redirect('/')->with('status', 'Successfully updated manga!');
     }
 
     public function destroy(Manga $manga)

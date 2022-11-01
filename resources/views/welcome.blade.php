@@ -35,7 +35,20 @@
                             <td>{{ $manga->author }}</td>
                             <td>{{ $manga->run_start }} - {{ $manga->run_end }}</td>
                             <td>{{ $manga->status }}</td>
-                            <td>-</td>
+                            <td>
+                                <form method="POST" action="/update_status">
+                                    @csrf
+                                    <input type="hidden" name="record_id" id="record_id" value="{{ $manga->id }}" />
+                                    <select class='form-select' name='status' id='status'>
+                                        <option value='Reading'>Reading</option>
+                                        <option value='Completed'>Completed</option>
+                                        <option value='On-Hold'>On-Hold</option>
+                                        <option value='Dropped'>Dropped</option>
+                                        <option value='Planned To Read'>Planned To Read</option>
+                                    </select>
+                                    <input type="submit" name=""/>
+                                </form>
+                            </td>
                             <td>-</td>
                         </tr>
                         @empty
