@@ -10,7 +10,14 @@
         <div class="row">
             <div class="col-12 text-center pt-5">
                 <h1 class="display-one m-5">PHP Laravel Project - CRUD</h1>
-
+                <form method="/search" method="GET">
+                    @if (isset($search))
+                        <input type="text" name="q" id="q" value="{{ $q }}" />
+                    @else
+                        <input type="text" name="q" id="q" />
+                    @endif
+                    <input type="submit" value="Search" />
+                </form>
                 <table class="table mt-3  text-left">
                     <thead>
                         <tr>
@@ -112,13 +119,21 @@
                     </tbody>
                 </table>
                 @if ($page > 1)
-                    <a href='/search?page={{ $page - 1}}'>Previous</a>
+                    @if (isset($q))
+                        <a href='/search?q={{ $q }}&page={{ $page - 1}}'>Previous</a>
+                    @else
+                        <a href='/search?page={{ $page - 1}}'>Previous</a>
+                    @endif
                 @else
                     <a>Previous</a>
                 @endif
 
                 @if ($pagination->has_next_page == TRUE && $page < $pagination->items->total)
-                    <a href="/search?page={{ $page + 1 }}">Next</a>
+                    @if (isset($q))
+                        <a href="/search?q={{ $q }}&page={{ $page + 1}}">Next</a>
+                    @else
+                        <a href="/search?page={{ $page + 1 }}">Next</a>
+                    @endif
                 @else
                     <a>Next</a>
                 @endif

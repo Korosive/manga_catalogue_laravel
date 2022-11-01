@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Manga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class MangaController extends Controller
 {
@@ -23,11 +24,30 @@ class MangaController extends Controller
     */
     public function search(Request $request)
     {
+        //Get page number for search page
         $page = $request->get('page', 1);
-        $response = Http::get('https://api.jikan.moe/v4/manga?&limit=10&page=' . $page);
+
+        if ($request->has('q'))
+        {
+            $q = $request->input('q');
+            $response = Http::get("https://api.jikan.moe/v4/manga?letter=$q&limit=10&page=$page");
+        }
+        else
+        {
+            $response = Http::get("https://api.jikan.moe/v4/manga?limit=10&page=$page");
+        }
+        
         $mangas = json_decode($response->body())->data;
         $pagination = json_decode($response->body())->pagination;
-        return view('search', compact('mangas', 'pagination', 'page'));
+
+        if (isset($q))
+        {
+            return view('search', compact('mangas', 'pagination', 'page', 'q'));
+        }
+        else
+        {
+            return view('search', compact('mangas', 'pagination', 'page'));
+        }
     }
 
     /*
