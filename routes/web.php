@@ -17,3 +17,5 @@ use App\Http\Controllers\MangaController;
 Route::get('/', [MangaController::class, 'index']);
 
 Route::get('/search', [MangaController::class, 'search']);
+
+Route::post('/search/add', [MangaController::class, 'create']);

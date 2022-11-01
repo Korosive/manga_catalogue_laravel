@@ -16,7 +16,7 @@ class MangaController extends Controller
     public function index()
     {
         //Fetch all manga from database
-        $mangas = DB::table('mangas')->get();
+        $mangas = DB::table('mangas')->orderBy('created_at', 'ASC')->get();
         return view('welcome', ['mangas' => $mangas]);
     }
 
@@ -37,15 +37,17 @@ class MangaController extends Controller
     */
     public function create(Request $request)
     {
+        //dd($request->mal_id);
         Manga::create([
-            'mal_id' => $request->mal_id,
+            'mal_id' => (int) $request->mal_id,
             'eng_title' => $request->eng_title,
+            'jp_title' => $request->jp_title,
             'author' => $request->author,
             'run_start' => $request->run_start,
             'run_end' => $request->run_end,
             'status' => $request->status
         ]);
-        return redirect('manga.list');
+        return redirect('/');
     }
 
     public function updateStatus(Request $request, Manga $manga)

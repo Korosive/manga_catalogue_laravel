@@ -20,6 +20,7 @@
                             <th scope="col">Author</th>
                             <th scope="col">Original Run</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Add To List</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,19 +42,31 @@
                                 @endif
                             </td>
                             <td>
+                                @php
+                                    $mangaauthor = "";
+                                @endphp
                                 @if (count($result->authors) > 1)
                                     @foreach($result->authors as $author)
                                         @if ($loop->last)
-                                            {{ $author->name }}
+                                            @php
+                                                $mangaauthor .= $author->name;
+                                            @endphp                                  
                                         @else
-                                            {{ $author->name, }}
+                                            @php
+                                                $mangaauthor .= $author->name . ", ";
+                                            @endphp
                                         @endif
                                     @endforeach
                                 @elseif (count($result->authors) == 1)
-                                    {{ $result->authors[0]->name }}
+                                    @php
+                                        $mangaauthor = $result->authors[0]->name;
+                                    @endphp
                                 @else
-                                    -
+                                    @php
+                                        $mangaauthor = "-";
+                                    @endphp
                                 @endif
+                                {{ $mangaauthor }}
                             </td>
                             <td>
                                 @if ($result->published->from == "")
@@ -65,11 +78,30 @@
                                 @if ($result->published->to == "")
                                     ?
                                 @else
-                                    {{ substr($result->published->to, 0, strpos($result->published->to, "T"))}} 
+                                    {{ substr($result->published->to, 0, strpos($result->published->to, "T")) }} 
                                 @endif
                             </td>
                             <td>
                                 {{ $result->status }}
+                            </td>
+                            <td>
+                                <form action="/search/add" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="mal_id" id="mal_id" value="{{ $result->mal_id }}" />
+                                    <input type="hidden" name="eng_title" id="eng_title" value="{{ $result->title }}" />
+                                    <input type="hidden" name="jp_title" id="jp_title" value="{{ $result->title_japanese }}" />
+                                    <input type="hidden" name="author" id="author" value="{{ $mangaauthor }}" />
+                                    <input type="hidden" name="run_start" id="run_start" value="{{ substr($result->published->from, 0, strpos($result->published->from, 'T')) }}" />
+                                    <input type="hidden" name="run_end" id="run_end" value="{{ substr($result->published->to, 0, strpos($result->published->to, 'T')) }}" />
+                                    <select class='form-select' name='status' id='status'>
+                                        <option value='Reading'>Reading</option>
+                                        <option value='Completed'>Completed</option>
+                                        <option value='On-Hold'>On-Hold</option>
+                                        <option value='Dropped'>Dropped</option>
+                                        <option value='Planned To Read'>Planned To Read</option>
+                                    </select>
+                                    <input type="submit" name=""/>
+                                </form> 
                             </td>
                         </tr>
                         @empty
