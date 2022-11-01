@@ -47,7 +47,7 @@ class MangaController extends Controller
             'run_end' => $request->run_end,
             'status' => $request->status
         ]);
-        return redirect('/');
+        return redirect('/')->with('status', 'Successfully added manga!');
     }
 
     public function updateStatus(Request $request, Manga $manga)

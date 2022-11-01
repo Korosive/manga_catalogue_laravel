@@ -10,6 +10,11 @@
         <div class="row">
             <div class="col-12 text-center pt-5">
                 <h1 class="display-one m-5">PHP Laravel Project - CRUD</h1>
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <table class="table mt-3  text-left">
                     <thead>
                         <tr>
