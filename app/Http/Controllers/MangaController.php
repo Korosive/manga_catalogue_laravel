@@ -52,18 +52,49 @@ class MangaController extends Controller
 
     public function update(Request $request)
     {
-        $manga = Manga::find($request->record_id);
+        $message = "";
+        //Check if record exists in database
+        //https://devdojo.com/bobbyiliev/how-to-check-if-a-record-exists-with-laravel-eloquent
+        if (Manga::where('record_id', $request->record_id)->exists())
+        {
+            //If record exists
 
-        $manga->status = $request->status;
+            try
+            {
+                //Get record from database.
+                $manga = Manga::find($request->record_id);
 
-        $manga->save(); 
+                //Change status
+                $manga->status = $request->status;
 
-        return redirect('/')->with('status', 'Successfully updated manga!');
+                //Save change
+                $manga->save(); 
+
+                //Set message
+                $message .= "Successfully updated manga!";
+            }
+            catch(Exception $e)
+            {
+                //Catch any exceptions
+                $message .= "Failed to update manga!";
+            }
+        }
+        else
+        {   
+            //Record does not exist
+
+            $message .= "Manga does not exist in list.";
+        }
+        
+        return redirect('/')->with('status', $message);
     }
 
-    public function destroy(Manga $manga)
+    public function destroy(Request $request)
     {
+        $manga = Manga::find($request->record_id);
+
         $manga->delete();
-        return redirect('manga.list');
+
+        return redirect('/')->with('status', 'Successfully removed manga!');
     }
 }

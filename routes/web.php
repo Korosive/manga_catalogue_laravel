@@ -16,8 +16,12 @@ use App\Http\Controllers\MangaController;
 
 Route::get('/', [MangaController::class, 'index']);
 
+Route::get('/home', [MangaController::class, 'index']);
+
 Route::get('/search', [MangaController::class, 'search']);
 
 Route::post('/search/add', [MangaController::class, 'create']);
 
 Route::post('/update_status', [MangaController::class, 'update']);
+
+Route::post('/remove', [MangaController::class, 'destroy']);

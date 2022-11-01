@@ -46,10 +46,16 @@
                                         <option value='Dropped'>Dropped</option>
                                         <option value='Planned To Read'>Planned To Read</option>
                                     </select>
-                                    <input type="submit" name=""/>
+                                    <input type="submit" name="Submit" value="Update Status" />
                                 </form>
                             </td>
-                            <td>-</td>
+                            <td>
+                                <form method="POST" action="/remove">
+                                    @csrf
+                                    <input type="hidden" name="record_id" id="record_id" value="{{ $manga->id }}" />
+                                    <input type="submit" name="Submit" value="Remove" />
+                                </form>
+                            </td>
                         </tr>
                         @empty
                         <tr>
