@@ -38,7 +38,7 @@
                             <td>
                                 <form method="POST" action="/update_status">
                                     @csrf
-                                    <input type="hidden" name="record_id" id="record_id" value="{{ $manga->id }}" />
+                                    <input type="hidden" name="id" id="id" value="{{ $manga->id }}" />
                                     <select class='form-select' name='status' id='status'>
                                         <option value='Reading'>Reading</option>
                                         <option value='Completed'>Completed</option>
@@ -52,7 +52,7 @@
                             <td>
                                 <form method="POST" action="/remove">
                                     @csrf
-                                    <input type="hidden" name="record_id" id="record_id" value="{{ $manga->id }}" />
+                                    <input type="hidden" name="id" id="id" value="{{ $manga->id }}" />
                                     <input type="submit" name="Submit" value="Remove" />
                                 </form>
                             </td>
