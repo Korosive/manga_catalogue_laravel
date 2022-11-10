@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manga</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center pt-5">
-                <h1 class="display-one m-5">PHP Laravel Project - CRUD</h1>
+@extends('layout')
+
+@section('title')
+    Manga Lister
+@endsection
+
+@section('navbar')
+    @parent
+@endsection
+
+@section('content')
+    <h1>Manga List</h1>
                 @if (session('status'))
-                    <div class="alert alert-success">
+                    <div>
                         {{ session('status') }}
                     </div>
                 @endif
-                <table class="table mt-3  text-left">
+                <table>
                     <thead>
                         <tr>
                             <th scope="col">English Title</th>
@@ -64,9 +64,5 @@
                         @endforelse
                     </tbody>
                 </table>
-            </div>
-        </div>
-    <a href='/search?page=1'>Search Database</a>
-</div>
-</body>
-</html>
+    <a href="/search?page=1">Search</a>
+@endsection
